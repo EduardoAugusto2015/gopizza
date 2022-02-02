@@ -8,6 +8,7 @@ import {
     DeleteLabel
 } from './styles';
 import { ButtonBack } from '@components/ButtonBack';
+import { Photo } from '@components/Photo';
 
 export function Product(){
     return(
@@ -20,6 +21,7 @@ export function Product(){
                     <DeleteLabel>Deletar</DeleteLabel>
                 </TouchableOpacity>
             </Header>
+            <Photo uri=""/>
         </Container>
     );
 }
