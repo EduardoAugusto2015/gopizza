@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Platform, TouchableOpacity } from 'react-native';
 
 import { 
     Container, 
     Header,
     Title,
-    DeleteLabel
+    DeleteLabel,
+    Upload,
+    PickImageButton
 } from './styles';
 import { ButtonBack } from '@components/ButtonBack';
 import { Photo } from '@components/Photo';
@@ -21,7 +23,11 @@ export function Product(){
                     <DeleteLabel>Deletar</DeleteLabel>
                 </TouchableOpacity>
             </Header>
-            <Photo uri=""/>
+            <Upload>
+                <Photo uri=""/>
+                <PickImageButton title="Carregar" type="secondary"/>
+            </Upload>
+
         </Container>
     );
 }
