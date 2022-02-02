@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
-import { Platform } from 'react-native';
+import { Platform, TouchableOpacity } from 'react-native';
 
 import { 
     Container, 
     Header,
     Title,
-    TouchableOpacity,
     DeleteLabel
 } from './styles';
+import { ButtonBack } from '@components/ButtonBack';
 
 export function Product(){
     return(
         <Container behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
             <Header>
+                <ButtonBack/>
+
                 <Title>Cadastrar</Title>
                 <TouchableOpacity>
                     <DeleteLabel>Deletar</DeleteLabel>

@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
+
 export const Container = styled.KeyboardAvoidingView`
     flex: 1;
     background-color: ${({ theme }) => theme.COLORS.BACKGROUND};
@@ -18,15 +19,14 @@ export const Header = styled(LinearGradient).attrs(({theme}) => ({
 
 export const Title = styled.Text`
     font-size: 24px;
+
     ${({ theme }) => css `
         font-family: ${theme.FONTS.TITLE};
         color: ${theme.COLORS.TITLE}
     `}
 `;
 
-export const TouchableOpacity = styled.TouchableOpacity``;
-
-export const DeleteLabel = styled.Text`
+ export const DeleteLabel = styled.Text`
     font-size: 14px;
     ${({ theme }) => css `
         font-family: ${theme.FONTS.TEXT};
