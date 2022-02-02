@@ -56,7 +56,7 @@ function AuthProvider({ children }: AuthProviderProps){
                         name,
                         isAdmin
                     };
-                    AsyncStorage.setItem(USER_COLLETION, JSON.stringify(userData));
+                    await AsyncStorage.setItem(USER_COLLETION, JSON.stringify(userData));
                     setUser(userData);
                 }
             }).catch(()=> Alert.alert('Login', 'Não foi possível buscar os dados de perfil do usuário'));
