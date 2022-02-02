@@ -3,6 +3,7 @@ import React, {
     useContext,
     useState,
     ReactNode, 
+    useEffect,
 } from 'react';
 
 import { Alert } from 'react-native';
@@ -33,6 +34,23 @@ export const AuthContext = createContext({} as AuthContextData);
 function AuthProvider({ children }: AuthProviderProps){
     const [isLogging, setIsLogging] = useState(false);
     const [user, setUser] = useState<User | null>(null);
+
+    async function loadUserStorageData() {
+        setIsLogging(true);
+
+        const storedUser = await AsyncStorage.getItem(USER_COLLETION);
+
+        if(storedUser){
+            const userData = JSON.parse(storedUser) as User;
+            setUser(userData);
+        }
+
+        setIsLogging(false);
+    }
+    
+    useEffect(() =>{
+        loadUserStorageData();
+    }, []);
 
     async function signIn (email: string, password: string){
 
@@ -71,6 +89,8 @@ function AuthProvider({ children }: AuthProviderProps){
         })
         .finally(()=> setIsLogging(false));
     }
+
+
 
     return (
         <AuthContext.Provider value={{
