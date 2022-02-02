@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Platform, TouchableOpacity } from 'react-native';
+import { Platform, TouchableOpacity, ScrollView } from 'react-native';
 
 import { 
     Container, 
@@ -7,13 +7,19 @@ import {
     Title,
     DeleteLabel,
     Upload,
-    PickImageButton
+    PickImageButton,
+    Form,
+    Label,
+    InputGroup,
+    InputGroupHeader,
+    MaxCharecters
 } from './styles';
 import * as ImagemPicker from 'expo-image-picker';
 import { ButtonBack } from '@components/ButtonBack';
 import { InputPrice } from '@components/InputPrice';
-
+import { Input } from '@components/Input';
 import { Photo } from '@components/Photo';
+import { Button } from '@components/Button';
 
 export function Product(){
 
@@ -36,25 +42,51 @@ export function Product(){
 
     return(
         <Container behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-            <Header>
-                <ButtonBack/>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <Header>
+                    <ButtonBack/>
 
-                <Title>Cadastrar</Title>
-                <TouchableOpacity>
-                    <DeleteLabel>Deletar</DeleteLabel>
-                </TouchableOpacity>
-            </Header>
-            <Upload>
-                <Photo uri={image}/>
-                <PickImageButton 
-                    onPress={hangleImagePicker}
-                    title="Carregar" 
-                    type="secondary"
-                />
-            </Upload>
-            <InputPrice size="P"/>
-            <InputPrice size="M"/>
-            <InputPrice size="G"/>
+                    <Title>Cadastrar</Title>
+                    <TouchableOpacity>
+                        <DeleteLabel>Deletar</DeleteLabel>
+                    </TouchableOpacity>
+                </Header>
+                <Upload>
+                    <Photo uri={image}/>
+                    <PickImageButton 
+                        onPress={hangleImagePicker}
+                        title="Carregar" 
+                        type="secondary"
+                    />
+                </Upload>
+                <Form>
+                    <InputGroup>
+                        <Label>Nome</Label>
+                        <Input />
+                    </InputGroup>
+                    <InputGroup>
+                        <InputGroupHeader>
+                            <Label>Desrição</Label>
+                            <MaxCharecters>0 de 60 caracteres</MaxCharecters>
+                        </InputGroupHeader>
+                    </InputGroup>
+                    <Input 
+                        multiline
+                        maxLength={60}
+                        style={{ height: 80}}
+                    />
+                    <InputGroup>
+                        <Label>Tamanhos e preço</Label>
+
+                        <InputPrice size="P"/>
+                        <InputPrice size="M"/>
+                        <InputPrice size="G"/>
+                        <Button
+                            title="Cadastrar pizza"
+                        />
+                    </InputGroup>
+                </Form>
+            </ScrollView>
         </Container>
     );
 }
