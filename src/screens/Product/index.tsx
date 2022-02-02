@@ -11,6 +11,8 @@ import {
 } from './styles';
 import * as ImagemPicker from 'expo-image-picker';
 import { ButtonBack } from '@components/ButtonBack';
+import { InputPrice } from '@components/InputPrice';
+
 import { Photo } from '@components/Photo';
 
 export function Product(){
@@ -50,7 +52,9 @@ export function Product(){
                     type="secondary"
                 />
             </Upload>
-
+            <InputPrice size="P"/>
+            <InputPrice size="M"/>
+            <InputPrice size="G"/>
         </Container>
     );
 }
