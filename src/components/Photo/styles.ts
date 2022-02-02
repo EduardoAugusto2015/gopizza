@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components/native";
-import { Button } from "@components/Button"; 
 
 export const Image = styled.Image`
     width: 160px;
