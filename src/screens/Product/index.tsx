@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Platform, TouchableOpacity, ScrollView } from 'react-native';
+import { Platform, TouchableOpacity, ScrollView, Alert } from 'react-native';
 
 import { 
     Container, 
@@ -24,6 +24,12 @@ import { Button } from '@components/Button';
 export function Product(){
 
     const [image, setImage] = useState('');
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+    const [prizeSizeP, setPrizeSizeP] = useState('');
+    const [prizeSizeM, setPrizeSizeM] = useState('');
+    const [prizeSizeG, setPrizeSizeG] = useState('');
+    const [isLoading, setIsloading] = useState(false);
 
     async function hangleImagePicker() {
         const { status } = await ImagemPicker.requestMediaLibraryPermissionsAsync();
@@ -37,6 +43,21 @@ export function Product(){
             if(!result.cancelled){
                 setImage(result.uri);
             }
+        }
+    }
+
+    async function handleAdd() {
+        if(!name.trim()){
+            return Alert.alert('Cadastro', 'Informe o nome da pizza.')
+        }
+        if(!description.trim()){
+            return Alert.alert('Cadastro', 'Informe a descrição da pizza.')
+        }
+        if(!image){
+            return Alert.alert('Cadastro', 'Selecione a imagem.')
+        }
+        if(!prizeSizeP || !prizeSizeM || !prizeSizeG){
+            return Alert.alert('Cadastro', 'Informe todos os tamanhos da pizza.')
         }
     }
 
@@ -62,7 +83,7 @@ export function Product(){
                 <Form>
                     <InputGroup>
                         <Label>Nome</Label>
-                        <Input />
+                        <Input onChangeText={setName} value={name}/>
                     </InputGroup>
                     <InputGroup>
                         <InputGroupHeader>
@@ -74,15 +95,19 @@ export function Product(){
                         multiline
                         maxLength={60}
                         style={{ height: 80}}
+                        onChangeText={setDescription} 
+                        value={description}
                     />
                     <InputGroup>
                         <Label>Tamanhos e preço</Label>
 
-                        <InputPrice size="P"/>
-                        <InputPrice size="M"/>
-                        <InputPrice size="G"/>
+                        <InputPrice size="P" onChangeText={setPrizeSizeP} value={prizeSizeP}/>
+                        <InputPrice size="M" onChangeText={setPrizeSizeM} value={prizeSizeM}/>
+                        <InputPrice size="G" onChangeText={setPrizeSizeG} value={prizeSizeG}/>
                         <Button
                             title="Cadastrar pizza"
+                            isLoading={isLoading}
+                            onPress={handleAdd}
                         />
                     </InputGroup>
                 </Form>
