@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Platform, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 
 import { 
     Container, 
@@ -44,6 +46,7 @@ export function Product(){
                 setImage(result.uri);
             }
         }
+        
     }
 
     async function handleAdd() {
@@ -59,6 +62,33 @@ export function Product(){
         if(!prizeSizeP || !prizeSizeM || !prizeSizeG){
             return Alert.alert('Cadastro', 'Informe todos os tamanhos da pizza.')
         }
+
+        const fileName = new Date().getTime();
+        const reference = storage().ref(`/pizzas/${fileName}.png`);
+        
+        await reference.putFile(image);
+        const photo_url = await reference.getDownloadURL();
+
+        setIsloading(true);
+
+        firestore()
+        .collection('pizzas')
+        .add({
+            name,
+            name_insensitive: name.toLowerCase().trim(),
+            description,
+            prices_sizes: {
+                p: prizeSizeP,
+                m: prizeSizeM,
+                g: prizeSizeG
+            },
+            photo_url:photo_url,
+            photo_path: reference.fullPath
+        })
+        .then(() => Alert.alert('Cadastro', 'Pizza cadastrada com sucesso.'))
+        .catch(() => Alert.alert('Cadatro', 'Não foi possível cadastrar a pizza.'));
+    
+        setIsloading(false);
     }
 
     return(
@@ -66,7 +96,6 @@ export function Product(){
             <ScrollView showsVerticalScrollIndicator={false}>
                 <Header>
                     <ButtonBack/>
-
                     <Title>Cadastrar</Title>
                     <TouchableOpacity>
                         <DeleteLabel>Deletar</DeleteLabel>
