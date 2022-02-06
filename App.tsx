@@ -9,6 +9,8 @@ import { ThemeProvider } from 'styled-components/native';
 import { AuthProvider } from '@hooks/auth';
 import { Routes } from './src/routes';
 
+import { Order } from '@screens/Order';
+
 import theme from './src/theme';
 
 export default function App() {
@@ -26,7 +28,7 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <StatusBar style='light' translucent backgroundColor='transparent'/>
         <AuthProvider>
-          <Routes/>
+          <Order/>
         </AuthProvider>
       </ThemeProvider>
     </GestureHandlerRootView>
