@@ -22,6 +22,8 @@ import { InputPrice } from '@components/InputPrice';
 import { Input } from '@components/Input';
 import { Photo } from '@components/Photo';
 import { Button } from '@components/Button';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { ProductNavigationProps } from '@src/@types/navigation';
 
 export function Product(){
 
@@ -33,6 +35,9 @@ export function Product(){
     const [prizeSizeG, setPrizeSizeG] = useState('');
     const [isLoading, setIsloading] = useState(false);
 
+    const route = useRoute();
+    const id = route.params as ProductNavigationProps;
+    console.log('Id do produto selecionado =>',id);
     async function hangleImagePicker() {
         const { status } = await ImagemPicker.requestMediaLibraryPermissionsAsync();
         
