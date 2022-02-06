@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useCallback} from "react";
 import HappyEmoji from '@assets/happy.png';
 import firestore from "@react-native-firebase/firestore";
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useFocusEffect } from '@react-navigation/native'
 import { MaterialIcons } from "@expo/vector-icons";
 import { Alert, TouchableOpacity, FlatList } from "react-native";
 import { useTheme } from 'styled-components/native';
@@ -56,15 +56,18 @@ export function Home (){
     }
 
     function handleOpen(id: string) {
-        navigation.navigate('product', {id});
+        navigation.navigate('product', { id });
     }
 
     function handleAdd() {
         navigation.navigate('product', {})
     }
-    useEffect(()=>{
-        fetchPizzas('');
-    }, [])
+
+    useFocusEffect(
+        useCallback(() => {
+            fetchPizzas('');
+        }, [])
+    );
 
     return (
         <Container>
@@ -85,7 +88,7 @@ export function Home (){
             />
             <MenuHeader>
                 <Title>Cardápio</Title>
-                <MenuItemsNumber>10 pizzas</MenuItemsNumber>
+                <MenuItemsNumber>{pizzas.length} pizzas</MenuItemsNumber>
             </MenuHeader>
 
             <FlatList

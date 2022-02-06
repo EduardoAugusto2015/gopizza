@@ -46,7 +46,7 @@ export function Product(){
     const [isLoading, setIsloading] = useState(false);
     const [photoPath, setPhotoPath] = useState('');
 
-    const navigtaion = useNavigation();
+    const navigation = useNavigation();
     const route = useRoute();
     const { id } = route.params as ProductNavigationProps;
 
@@ -109,7 +109,20 @@ export function Product(){
     }
 
     function handleGoBack(){
-        navigtaion.goBack();
+        navigation.goBack();
+    }
+    
+    function handleDelete(){
+        firestore()
+        .collection('pizzas')
+        .doc(id)
+        .delete()
+        .then(() => {
+            storage()
+            .ref(photoPath)
+            .delete()
+            .then(() => navigation.navigate('home'));
+        });
     }
 
     useEffect(() => {
@@ -140,8 +153,8 @@ export function Product(){
                     <Title>Cadastrar</Title>
 
                     {
-                        !id ?
-                        <TouchableOpacity>
+                        id ?
+                        <TouchableOpacity onPress={handleDelete}>
                             <DeleteLabel>Deletar</DeleteLabel>
                         </TouchableOpacity>
                         : <View style={{ width: 20}}/>
@@ -166,7 +179,7 @@ export function Product(){
                     </InputGroup>
                     <InputGroup>
                         <InputGroupHeader>
-                            <Label>Desrição</Label>
+                            <Label>Descrição</Label>
                             <MaxCharecters>0 de 60 caracteres</MaxCharecters>
                         </InputGroupHeader>
                     </InputGroup>
