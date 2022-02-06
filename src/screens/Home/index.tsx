@@ -23,7 +23,8 @@ export function Home (){
     const { COLORS } = useTheme();
 
     const [pizzas, setPizzas] = useState<ProductProps>([]);
-    
+    const [search, setSearch] = useState('');
+
     function fetchPizzas(value: string){
         const formattedValue = value.toLocaleLowerCase().trim();
 
@@ -42,14 +43,22 @@ export function Home (){
             }) as ProductProps[];   
             setPizzas(data);
         })
-        .catch(()=> Alert.alert('Consulta', 'Não foi possivel realizar a consulta'))
+        .catch(()=> Alert.alert('Consulta', 'Não foi possível realizar a consulta.'))
+    }
+
+    function handleSearch(){
+        fetchPizzas(search);
+    }
+
+    function handleSearchClear(){
+        setSearch('');
+        fetchPizzas('');
     }
 
     useEffect(()=>{
         fetchPizzas('');
     }, [])
 
-    
     return (
         <Container>
             <Header>
@@ -61,7 +70,12 @@ export function Home (){
                     <MaterialIcons name="logout" color={COLORS.TITLE} size={24}/>
                 </TouchableOpacity>
             </Header>
-            <Search onSearch={()=>{}} onClear={()=>{}}/>
+            <Search 
+                onChangeText={setSearch}
+                value={search}
+                onSearch={handleSearch} 
+                onClear={handleSearchClear}
+            />
             <MenuHeader>
                 <Title>Cardápio</Title>
                 <MenuItemsNumber>10 pizzas</MenuItemsNumber>
@@ -78,8 +92,6 @@ export function Home (){
                     marginHorizontal: 24
                 }}
             />
-
-            
         </Container>
     );
 }
