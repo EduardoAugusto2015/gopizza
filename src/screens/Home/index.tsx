@@ -1,7 +1,7 @@
 import React from "react";
 import HappyEmoji from '@assets/happy.png';
-import { MaterialIcons } from "@expo/vector-icons"
-import { BorderlessButton } from "react-native-gesture-handler";
+import { MaterialIcons } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native";
 import { useTheme } from 'styled-components/native';
 import { 
     Container, 
@@ -10,9 +10,11 @@ import {
     GreetingEmoji,
     GreetingText,
  } from "./styles";
+import { Search } from '@components/Search';
 
 export function Home (){
     const {COLORS} = useTheme();
+    
     return (
         <Container>
             <Header>
@@ -20,10 +22,11 @@ export function Home (){
                     <GreetingEmoji source={HappyEmoji}/>
                     <GreetingText>Olá, Admin</GreetingText>
                 </Greeting>
-                <BorderlessButton>
+                <TouchableOpacity>
                     <MaterialIcons name="logout" color={COLORS.TITLE} size={24}/>
-                </BorderlessButton>
+                </TouchableOpacity>
             </Header>
+            <Search onSearch={()=>{}} onClear={()=>{}}/>
         </Container>
-    )
+    );
 }
