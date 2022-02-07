@@ -15,8 +15,11 @@
               "./assets/*"
             ],
           "@hooks/*": [ 
-               "./hooks/*"
-            ]
+              "./hooks/*"
+            ],
+          "@utils/*": [ 
+              "./utils/*"
+          ]
       }
   },
 }

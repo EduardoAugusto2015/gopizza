@@ -16,10 +16,11 @@ module.exports = function(api) {
                     '.json'
                   ],
                   alias: {
-                    '@components' : './src/components',
-                    '@screens' : './src/screens',
-                    '@assets' : './src/assets',
-                    '@hooks' : './src/hooks',
+                    '@components': './src/components',
+                    '@screens': './src/screens',
+                    '@assets': './src/assets',
+                    '@hooks': './src/hooks',
+                    '@utils': './src/utils',
                   }
                 }
               ]
