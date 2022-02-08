@@ -21,10 +21,10 @@ import {
     FormRow,
     ContentScroll,
 } from './styles'
-import { ScrollView } from "react-native-gesture-handler";
 
 export function Order (){
     const [size, setSize] = useState('');
+    
     return (
         <Container behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
             <ContentScroll>
